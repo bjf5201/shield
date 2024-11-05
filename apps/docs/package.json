@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@ai-shield/eslint-config": "workspace:*",
-    "@aishield/typescript-config": "workspace:*",
+    "@ai-shield/typescript-config": "workspace:*",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

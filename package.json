@@ -17,5 +17,15 @@
   "packageManager": "pnpm@8.15.6",
   "engines": {
     "node": ">=18"
+  },
+  "dependencies": {
+    "commitizen": "4.3.1",
+    "commitlint": "19.5.0",
+    "cz-emoji-conventional": "1.1.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-emoji-conventional"
+    }
   }
 }
