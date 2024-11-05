@@ -1,5 +1,7 @@
 {
-  "name": "shield-monorepo",
+  "name": "@ai-shield/core",
+  "version": "0.1.0",
+  "description": "Protects your website or web application from malicious scraping by bots and other AI through the generation of protection files.",
   "private": true,
   "scripts": {
     "build": "turbo build",
@@ -8,7 +10,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "prettier": "^3.2.5",
+    "prettier": "^3.1.0",
     "turbo": "^2.2.3",
     "typescript": "5.5.4"
   },
