@@ -11,19 +11,20 @@
     "vscode": {
       "extensions": [
         // TypeScript
-        "dbaeumer.vscode-eslint",
         "oouo-diogo-perdigao.docthis",
         // File Linters (non TypeScript)
-        "tamasfe.even-better-toml",
+        "dbaeumer.vscode-eslint",
         "davidanson.vscode-markdownlint",
+        "esbenp.prettier-vscode",
+        "tamasfe.even-better-toml",
         // Global
         "editorconfig.editorconfig",
-        "gruntfuggly.todo-tree",
         "eamodio.gitlens",
+        "mads-hartmann.bash-ide-vscode",
         // UI
         "naumovs.color-highlight",
-        "octref.vetur",
         // Theme
+        "Endormi.2077-theme",
         "vscode-icons-team.vscode-icons",
         // Docker
         "ms-azuretools.vscode-docker"
@@ -34,8 +35,10 @@
           "source.fixAll.eslint": "always"
         },
         "eslint.alwaysShowStatus": true,
-        "workbench.iconTheme": "vscode-icons",
-        "terminal.integrated.shell.linux": "/bin/bash"
+        "terminal.integrated.shell.linux": "/bin/bash",
+        "workbench.colorTheme": "2077",
+        "workbench.editor.enablePreview": true,
+        "workbench.iconTheme": "vscode-icons"
       }
     }
   },
