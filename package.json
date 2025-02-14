@@ -2,30 +2,42 @@
   "name": "@ai-shield/core",
   "version": "0.1.0",
   "description": "Protects your website or web application from malicious scraping by bots and other AI through the generation of protection files.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bjf5201/ai-shield.git"
+  },
+  "homepage": "https://github.com/bjf5201/ai-shield#readme",
+  "bugs": {
+    "url": "https://github.com/bjf5201/ai-shield/issues",
+    "email": "hello@bethanyfannin.com"
+  },
+  "author": "Bethany Fannin <contact@bethanyfannin.com> (https://www.bethanyfannin.com)",
+  "maintainers": [
+    "Bethany Fannin <contact@bethanyfannin.com> (https://www.bethanyfannin.com)"
+  ],
   "private": true,
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-emoji-conventional"
+    }
+  },
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
-  "devDependencies": {
-    "prettier": "^3.1.0",
-    "turbo": "^2.2.3",
-    "typescript": "5.5.4"
-  },
-  "packageManager": "pnpm@8.15.6",
   "engines": {
     "node": ">=18"
   },
-  "dependencies": {
+  "devDependencies": {
+    "prettier": "^3.1.0",
+    "turbo": "^2.2.3",
+    "typescript": "5.5.4",
     "commitizen": "4.3.1",
     "commitlint": "19.5.0",
     "cz-emoji-conventional": "1.1.0"
   },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-emoji-conventional"
-    }
-  }
+  "packageManager": "pnpm@9.12.3+sha512.cce0f9de9c5a7c95bef944169cc5dfe8741abfb145078c0d508b868056848a87c81e626246cb60967cbd7fd29a6c062ef73ff840d96b3c86c40ac92cf4a813ee"
 }
