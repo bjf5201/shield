@@ -2,56 +2,47 @@
   "name": "shield-dev",
   "build": {
     "context": ".",
-    "image": "./Dockerfile",
-    "args": {
-      "CUID": "1002",
-      "CGID": "1002"
-    }
+    "dockerfile": "Dockerfile"
   },
   "features": {
-    "ghcr.io/devcontainers-extra/features/pnpm:2.0.4": {
-      "version": "2.0.4"
-    },
-    "ghcr.io/devcontainers/features/common-utils:2.5.2": {
-      "installZsh": true,
-      "upgradePackages": true,
-      "username": "codespace",
-      "userUid": "1005",
-      "userGid": "1005"
-    }
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
-  "extensions": [
-    // TypeScript
-    "dbaeumer.vscode-eslint",
-    "oouo-diogo-perdigao.docthis",
-    // Files
-    "bungcip.better-toml",
-    "yzhang.markdown-all-in-one",
-    // Global
-    "editorconfig.editorconfig",
-    "gruntfuggly.todo-tree",
-    "eamodio.gitlens",
-    // UI
-    "naumovs.color-highlight",
-    "octref.vetur",
-    // Theme
-    "vscode-icons-team.vscode-icons",
-    // Docker
-    "ms-azuretools.vscode-docker"
-  ],
-  "settings": {
+  "customizations": {
     "vscode": {
-      "eslint.alwaysShowStatus": true,
-      "workbench.iconTheme": "vscode-icons",
-      "editor.fontFamily": "Consolas, 'Courier New', monospace,",
-      "terminal.integrated.fontFamily": "Consolas",
-      "terminal.integrated.fontSize": 14
+      "extensions": [
+        // TypeScript
+        "dbaeumer.vscode-eslint",
+        "oouo-diogo-perdigao.docthis",
+        // File Linters (non TypeScript)
+        "tamasfe.even-better-toml",
+        "davidanson.vscode-markdownlint",
+        // Global
+        "editorconfig.editorconfig",
+        "gruntfuggly.todo-tree",
+        "eamodio.gitlens",
+        // UI
+        "naumovs.color-highlight",
+        "octref.vetur",
+        // Theme
+        "vscode-icons-team.vscode-icons",
+        // Docker
+        "ms-azuretools.vscode-docker"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "always"
+        },
+        "eslint.alwaysShowStatus": true,
+        "workbench.iconTheme": "vscode-icons",
+        "terminal.integrated.shell.linux": "/bin/bash"
+      }
     }
   },
   "forwardPorts": [
-    // HTTP
-    "8080",
     // Node
-    "4000"
-  ]
+    3000
+  ],
+  "remoteUser": "node",
+  "postCreateCommand": "pnpm install"
 }
