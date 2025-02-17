@@ -9,7 +9,7 @@ RUN useradd --uid 1002 --gid node --shell /bin/bash --create-home ${USERNAME}
 ARG NPM_GLOBAL=/usr/local/share/npm-global
 ENV PATH=${NPM_GLOBAL}/bin:${PATH}
 
-ARG NODE_MODULES="eslint @eslint/js typescript typescript-eslint prettier"
+ARG NODE_MODULES="eslint @eslint/js typescript typescript-eslint prettier corepack"
 RUN \
     # Configure global npm install location, use group to adapt to UID/GID changes
     if ! cat /etc/group | grep -e "^npm:" > /dev/null 2>&1; then groupadd -r npm; fi \
@@ -24,6 +24,10 @@ RUN \
     # Install eslint and typescript
     && su ${USERNAME} -c "umask 0002 && npm install -g ${NODE_MODULES}" \
     && npm cache clean --force > /dev/null 2>&1
+
+# Install pnpm package manager using corepack
+RUN corepack enable \
+    && corepack prepare pnpm@10.2.1 --activate
 
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
