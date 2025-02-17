@@ -11,29 +11,49 @@
 		"ghcr.io/devcontainers/features/github-cli:1.0.13": {
 		"version": "2.67.0"
 		}
-	}
-
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {
-	//	"ghcr.io/joshuanianji/devcontainer-features/mount-pnpm-store:1": {},
-	//	"ghcr.io/devcontainers-extra/features/actionlint:1": {
-	//		"version": "latest"
-	//	},
-	//	"ghcr.io/devcontainers-extra/features/pnpm:2": {
-	//		"version": "latest"
-	//	},
-	// },
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"bierner.color-info",
+				"DavidAnson.vscode-markdownlint",
+				"dbaeumer.vscode-eslint",
+				"eamodio.gitlens",
+				"EditorConfig.EditorConfig",
+				"Endormi.2077-theme",
+				"esbenp.prettier-vscode",
+				"GitHub.codespaces",
+				"github.vscode-github-actions",
+				"ms-azuretools.vscode-docker",
+				"ms-vscode-remote.remote-containers",
+				"naumovs.color-highlight",
+				"pranaygp.vscode-css-peek",
+				"ritwickdey.LiveServer"
+			],
+			"settings": {
+				"editor.formatOnSave": true,
+				"editor.codeActionsOnSave": {
+					"source.fixAll.eslint": "always"
+				},
+				"editor.inlineSuggest.suppressSuggestions": true,
+				"editor.minimap.enabled": false,
+				"terminal.integrated.defaultProfile.linux": "bash",
+				"terminal.integrated.profiles.linux": {
+					"bash": {
+						"path": "/bin/bash"
+					}
+				},
+				"workbench.colorTheme": "2077",
+				"workbench.iconTheme": "vscode-icons"
+			}
+		}
+	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
+	//"forwardPorts": [
+	//	3000
+	//],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "pnpm install",
-
-	// Configure tool-specific properties.
-	// "customizations": {
-	// 		"vscode": {
-	//				"settings": {}
-	//				"extensions": [dockerExtension, actionlint, editorconfig, gitlens, markdownlint, vscode-eslint, vscode-yaml,  ]
-	// }
+	"postCreateCommand": "pnpm install"
 }
