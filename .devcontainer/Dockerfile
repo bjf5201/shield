@@ -1,34 +1,37 @@
-# syntax=docker/dockerfile:1
-ARG VERSION=1.1.8
 ARG VARIANT=22-bookworm
-ARG SHA=sha256:896bfba10582c9239d1c36bab53b80af06253019f62b846fa440ee643ca63eb1
-FROM mcr.microsoft.com/devcontainers/javascript-node:${VERSION}-${VARIANT}
+FROM node:${VARIANT}
 
-ARG USER=node
-ARG DEBIAN_FRONTEND=noninteractive
-RUN usermod -s /bin/bash ${USER}
+# Add user `codespace` with uid `1002` to the container.
+ARG USERNAME=codespace
+RUN useradd --uid 1002 --gid node --shell /bin/bash --create-home ${USERNAME}
 
-# Node server port
-EXPOSE 3000
+# Add NPM global to PATH.
+ARG NPM_GLOBAL=/usr/local/share/npm-global
+ENV PATH=${NPM_GLOBAL}/bin:${PATH}
 
+ARG NODE_MODULES="eslint @eslint/js typescript typescript-eslint prettier"
+RUN \
+    # Configure global npm install location, use group to adapt to UID/GID changes
+    if ! cat /etc/group | grep -e "^npm:" > /dev/null 2>&1; then groupadd -r npm; fi \
+    && usermod -a -G npm ${USERNAME} \
+    && umask 0002 \
+    && mkdir -p ${NPM_GLOBAL} \
+    && touch /usr/local/etc/npmrc \
+    && chown ${USERNAME}:npm ${NPM_GLOBAL} /usr/local/etc/npmrc \
+    && chmod g+s ${NPM_GLOBAL} \
+    && npm config -g set prefix ${NPM_GLOBAL} \
+    && su ${USERNAME} -c "npm config -g set prefix ${NPM_GLOBAL}" \
+    # Install eslint and typescript
+    && su ${USERNAME} -c "umask 0002 && npm install -g ${NODE_MODULES}" \
+    && npm cache clean --force > /dev/null 2>&1
 
-USER ${USER}
-ARG HOME=/home/${USER}
-WORKDIR ${HOME}
+# [Optional] Uncomment this section to install additional OS packages.
+# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+#     && apt-get -y install --no-install-recommends <your-package-list-here>
 
-ARG PNPM_VERSION=10.2.0
-ARG PNPM_HOME=${HOME}/.local/share/pnpm
-ENV PATH="${PNPM_HOME}:$PATH"
-RUN wget -qO- https://get.pnpm.io/install.sh | env PNPM_VERSION=${PNPM_VERSION} ENV="$HOME/.bashrc" SHELL="$(which bash)" bash -
+# [Optional] Uncomment if you want to install an additional version of node using nvm
+# ARG EXTRA_NODE_VERSION=10
+# RUN su node -c "source /usr/local/share/nvm/nvm.sh && nvm install ${EXTRA_NODE_VERSION}"
 
-RUN --mount=type=cache,id=pnpm,target=${PNPM_HOME}/store \
-    && pnpm fetch --store-dir=${PNPM_HOME}/store
-
-# Install Tini
-ARG TINI_VERSION=v0.19.0
-ADD https://github.com/krallin/tini/releases/download/$TINI_VERSION/tini /tini
-RUN chmod +x /tini
-
-ENTRYPOINT ["/tini", "--"]
-
-CMD ["/bin/bash"]
+# [Optional] Uncomment if you want to install more global node modules
+# RUN su node -c "npm install -g <your-package-list-here>"
