@@ -1,0 +1,16 @@
+{
+  "extends": "@ai-shield/typescript-config/base.json",
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "jest"
+      }
+    ]
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
