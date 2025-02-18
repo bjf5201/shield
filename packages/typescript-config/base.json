@@ -1,19 +1,30 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
+    // Enable modern features
+    "allowJs": true,
+    "jsx": "preserve",
+    "lib": ["es2022", "DOM", "DOM.Iterable"],
+    "module": "esnext",
+    "moduleDetection": "force",
+    "resolveJsonModule": true,
+    "target": "esnext",
+
+    // Bundler mode compilation
+    "allowImportingTsExtensions": true,
     "declaration": true,
     "declarationMap": true,
     "esModuleInterop": true,
-    "incremental": false,
     "isolatedModules": true,
-    "lib": ["es2022", "DOM", "DOM.Iterable"],
-    "module": "NodeNext",
-    "moduleDetection": "force",
-    "moduleResolution": "NodeNext",
-    "noUncheckedIndexedAccess": true,
-    "resolveJsonModule": true,
+    "moduleResolution": "bundler",
+
+    // Best practices
+    "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "ES2022"
+
+    // Stricter flags
+    "forceConsistentCasingInFileNames": true,
+    "noUncheckedIndexedAccess": true,
   }
 }
