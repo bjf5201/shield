@@ -18,3 +18,45 @@ export function parseUserAgents(html: string): string[] {
 
   return agentNames;
 }
+
+/**
+ *
+ */
+
+export function parseCategories(html: string): string[]{
+  const $ = cheerio.load(html);
+  const categories: string[] = [];
+
+  $(".tag").each((index, element) => {
+    categories.push($(element).text().trim());
+  });
+
+  return categories;
+}
+
+/**
+ *
+ */
+
+export async function fetchUserAgents(categoryExcludes: string[]): Promise<string[]> {
+  const url = "https://darkvisitors.com/agents";
+  const response = await fetch(url);
+  const html = await response.text();
+
+  const agents = parseUserAgents(html);
+  const categories = parseCategories(html);
+  const userAgents: string[] = [];
+  const categoryExcludesSet = new Set(categoryExcludes);
+
+  for (let i = 0; i < agents.length; i++) {
+    const category = categories[i] ?? "";
+    const agent = agents[i] ?? "";
+
+    if (categoryExcludesSet.has(category)) {
+      continue;
+    }
+    userAgents.push(agent);
+  }
+
+  return userAgents;
+}
